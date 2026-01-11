@@ -8,7 +8,8 @@ namespace MazeExample
         // 0 = wall
         // 1 = floor
         // 2 = goal
-        static int[,] maze1 = {
+        private static readonly int[,] maze1 =
+        {
             //0   1   2   3   4   5   6   7   8   9   10  11
             { 0 , 0 , 0 , 0 , 0 , 2 , 0 , 0 , 0 , 0 , 0 , 0 }, //row 0
             { 0 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 0 }, //row 1
@@ -21,202 +22,203 @@ namespace MazeExample
             { 0 , 1 , 0 , 1 , 1 , 1 , 1 , 1 , 0 , 1 , 1 , 0 }, //row 8
             { 0 , 1 , 0 , 1 , 0 , 0 , 0 , 1 , 0 , 1 , 1 , 0 }, //row 9
             { 0 , 1 , 1 , 1 , 0 , 1 , 1 , 1 , 0 , 1 , 1 , 0 }, //row 10
-            { 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 , 0 , 0, 0 }  //row 11 (start position is (11, 5))
+            { 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 , 0 , 0 , 0 }  //row 11 (start position is (11, 5))
         };
 
-        const string UP = "up";
-        const string DOWN = "down";
-        const string LEFT = "left";
-        const string RIGHT = "right";
+        private const string UP = "up";
+        private const string DOWN = "down";
+        private const string LEFT = "left";
+        private const string RIGHT = "right";
 
-        static string[] actions = [UP, DOWN, LEFT, RIGHT];
+        private static readonly string[] actions = new[] { UP, DOWN, LEFT, RIGHT };
 
-        static int[,] rewards;
+        private const int WALL_REWARD_VALUE = -500;
+        private const int FLOOR_REWARD_VALUE = -10;
+        private const int GOAL_REWARD_VALUE = 500;
 
-        const int WALL_REWARD_VALUE = -500;
-        const int FLOOR_REWARD_VALUE = -10;
-        const int GOAL_REWARD_VALUE = 500;
+        private static int[,] rewards;
+        private static torch.Tensor qValues;
 
-        static void setupRewards(int[,] maze, int wallValue, int floorValue, int goalValue)
+        // Hyperparameters
+        private const float EPSILON = 0.95f;
+        private const float DISCOUNT_FACTOR = 0.8f;
+        private const float LEARNING_RATE = 0.9f;
+        private const int EPISODES = 1500;
+
+        private const int START_ROW = 11;
+        private const int START_COLUMN = 5;
+
+        // Keep one Random for the whole program (otherwise you can get repeated sequences)
+        private static readonly Random rng = new Random();
+
+        public static void Main(string[] args)
+        {
+            setupRewards(maze1, WALL_REWARD_VALUE, FLOOR_REWARD_VALUE, GOAL_REWARD_VALUE);
+            setupQValues(maze1);
+
+            trainTheModel(maze1, FLOOR_REWARD_VALUE, EPSILON, DISCOUNT_FACTOR, LEARNING_RATE, EPISODES);
+            navigateMaze(maze1, START_ROW, START_COLUMN, FLOOR_REWARD_VALUE, WALL_REWARD_VALUE);
+
+            Console.WriteLine("Done. Press ENTER to exit.");
+            Console.ReadLine();
+        }
+
+        private static void setupRewards(int[,] maze, int wallValue, int floorValue, int goalValue)
         {
             int mazeRows = maze.GetLength(0);
-            int mazeCols = maze.GetLength(1);
+            int mazeColumns = maze.GetLength(1);
 
-            rewards = new int[mazeRows, mazeCols];
+            rewards = new int[mazeRows, mazeColumns];
 
-            for (int row = 0; row < mazeRows; row++)
+            for (int i = 0; i < mazeRows; i++)
             {
-                for (int col = 0; col < mazeCols; col++)
+                for (int j = 0; j < mazeColumns; j++)
                 {
-                    switch (maze[row, col])
+                    switch (maze[i, j])
                     {
                         case 0:
-                            rewards[row, col] = wallValue;
+                            rewards[i, j] = wallValue;
                             break;
                         case 1:
-                            rewards[row, col] = floorValue;
+                            rewards[i, j] = floorValue;
                             break;
                         case 2:
-                            rewards[row, col] = goalValue;
-                            break; 
+                            rewards[i, j] = goalValue;
+                            break;
                     }
-
                 }
             }
         }
 
-        static torch.Tensor qValues;
-
-        static void setupQValues(int[,] maze)
+        private static void setupQValues(int[,] maze)
         {
             int mazeRows = maze.GetLength(0);
-            int mazeCols = maze.GetLength(1);
+            int mazeColumns = maze.GetLength(1);
 
-            qValues = torch.zeros(mazeRows, mazeCols, actions.Length);
+            // Q-table: [row, col, action]
+            qValues = torch.zeros(mazeRows, mazeColumns, 4);
         }
 
-        static bool hasHitWallOrEndOfMaze(int currentRow, int currentColumn, int floorValue)
+        private static bool hasHitWallOrEndOfMaze(int currentRow, int currentColumn, int floorValue)
         {
+            // In this setup, "continue episode" only while we are on floor cells.
+            // Wall/Goal are terminal.
             return rewards[currentRow, currentColumn] != floorValue;
         }
 
-        static long determineNextAction(int currentRow, int currentColumn, float epsilon)
+        private static long determineNextAction(int currentRow, int currentColumn, float epsilon)
         {
-            Random random = new Random();
+            // NOTE: Your original logic is reversed vs the usual epsilon-greedy naming:
+            // - if random < epsilon -> choose argmax (exploit)
+            // - else -> random action (explore)
+            // Kept as-is to preserve your behavior.
+            double r = rng.NextDouble();
 
-            double randomBetween0And1 = random.NextDouble();
+            if (r < epsilon)
+                return torch.argmax(qValues[currentRow, currentColumn]).item<long>();
 
-            long nextAction = randomBetween0And1 <epsilon ? torch.argmax(qValues[currentRow, currentColumn]).item<long>() : random.Next(actions.Length);
-
-            return nextAction;
-
+            return rng.Next(4);
         }
 
-        static (int, int) moveOneSpace(int[,] maze, int currentRow, int currentColumn, long currentAction)
+        private static (int nextRow, int nextColumn) moveOneSpace(int[,] maze, int currentRow, int currentColumn, long currentAction)
         {
-
             int mazeRows = maze.GetLength(0);
-            int mazeColums = maze.GetLength(1);
+            int mazeColumns = maze.GetLength(1);
 
             int nextRow = currentRow;
             int nextColumn = currentColumn;
 
+            string action = actions[currentAction];
 
-            if (actions[currentAction] == UP && currentRow > 0)
-            {
+            if (action == UP && currentRow > 0)
                 nextRow--;
-            }
-            else if (actions[currentAction] == DOWN && currentRow < mazeRows - 1)
-            {
+            else if (action == DOWN && currentRow < mazeRows - 1)
                 nextRow++;
-            }
-            else if (actions[currentAction] == LEFT && currentColumn > 0)
-            {
+            else if (action == LEFT && currentColumn > 0)
                 nextColumn--;
-            }
-            else if (actions[currentAction] == RIGHT && currentColumn < mazeColums - 1)
-            {
+            else if (action == RIGHT && currentColumn < mazeColumns - 1)
                 nextColumn++;
-            }
 
             return (nextRow, nextColumn);
         }
 
-        static void trainTheModel(int[,] maze, int floorValue, float epsilon, float discountFactor, float learningRate, float episodes)
+        private static void trainTheModel(int[,] maze, int floorValue, float epsilon, float discountFactor, float learningRate, int episodes)
         {
-
-            for(int episode = 0; episode < episodes; episode++)
+            for (int episode = 0; episode < episodes; episode++)
             {
-                Console.WriteLine($"-----Starting episode {episode} -----");
-                int currentRow = 11;
-                int currentColumn = 5;
+                Console.WriteLine("-----Starting episode " + episode + "-----");
+
+                int currentRow = START_ROW;
+                int currentColumn = START_COLUMN;
+
                 while (!hasHitWallOrEndOfMaze(currentRow, currentColumn, floorValue))
                 {
                     long currentAction = determineNextAction(currentRow, currentColumn, epsilon);
+
                     int previousRow = currentRow;
                     int previousColumn = currentColumn;
-                    (int, int) nextMove = moveOneSpace(maze, currentRow, currentColumn, currentAction);
-                    currentRow = nextMove.Item1;
-                    currentColumn = nextMove.Item2;
+
+                    var nextMove = moveOneSpace(maze, currentRow, currentColumn, currentAction);
+                    currentRow = nextMove.nextRow;
+                    currentColumn = nextMove.nextColumn;
+
                     float reward = rewards[currentRow, currentColumn];
                     float previousQValue = qValues[previousRow, previousColumn, currentAction].item<float>();
-                    float temporalDifference = reward + (discountFactor * torch.max(qValues[currentRow, currentColumn])).item<float>() - previousQValue;
+
+                    float maxNextQ = torch.max(qValues[currentRow, currentColumn]).item<float>();
+                    float temporalDifference = reward + (discountFactor * maxNextQ) - previousQValue;
+
                     float nextQValue = previousQValue + (learningRate * temporalDifference);
                     qValues[previousRow, previousColumn, currentAction] = nextQValue;
                 }
 
-                Console.WriteLine($"-----Finished episode {episode} -----");
+                Console.WriteLine("-----Finished episode " + episode + "-----");
             }
 
-            Console.WriteLine("Completed Training!");
+            Console.WriteLine("Completed training!");
         }
 
-        static List<int[]> navigateMaze(int[,] maze, int startRow, int startColumn, int floorValue, int wallValue)
+        private static List<int[]> navigateMaze(int[,] maze, int startRow, int startColumn, int floorValue, int wallValue)
         {
-            List<int[]> path = new List<int[]>();
+            var path = new List<int[]>();
 
             if (hasHitWallOrEndOfMaze(startRow, startColumn, floorValue))
-            {
-                return [];
-            }
-            else
-            {
-                int currentRow = startRow;
-                int currentColumn = startColumn;
-                path = [[currentRow, currentColumn]];
+                return path;
 
-                while (!hasHitWallOrEndOfMaze(currentRow, currentColumn, floorValue))
+            int currentRow = startRow;
+            int currentColumn = startColumn;
+
+            path.Add(new[] { currentRow, currentColumn });
+
+            while (!hasHitWallOrEndOfMaze(currentRow, currentColumn, floorValue))
+            {
+                // epsilon=1.0 here means "always exploit" with your determineNextAction implementation
+                int nextAction = (int)determineNextAction(currentRow, currentColumn, 1.0f);
+
+                var nextMove = moveOneSpace(maze, currentRow, currentColumn, nextAction);
+                currentRow = nextMove.nextRow;
+                currentColumn = nextMove.nextColumn;
+
+                if (rewards[currentRow, currentColumn] != wallValue)
                 {
-
-                    int nextAction = (int) determineNextAction(currentRow, currentColumn, 1.0f);
-                    (int, int) nextMove = moveOneSpace(maze, currentRow, currentColumn, nextAction);
-                    currentRow = nextMove.Item1;
-                    currentColumn = nextMove.Item2;
-                    if (rewards[currentRow, currentColumn] != wallValue)
-                    {
-                        path.Add([currentRow, currentColumn]);
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    path.Add(new[] { currentRow, currentColumn });
                 }
+                // else: hit wall; you "continue" (kept behavior)
             }
 
             int moveCount = 1;
-
             for (int i = 0; i < path.Count; i++)
             {
-                Console.WriteLine("Move " + moveCount + ": (");
+                Console.Write("Move " + moveCount + ": (");
                 foreach (int element in path[i])
                 {
-                    Console.WriteLine(" " + element);
+                    Console.Write(" " + element);
                 }
                 Console.WriteLine(" )");
-                Console.WriteLine();
                 moveCount++;
             }
 
             return path;
-
         }
-
-        const float EPSILON = 0.95f;
-        const float DISCOUNT_FACTOR = 0.8f;
-        const float LEARNING_RATE = 0.9f;
-        const int EPISODES = 1500;
-        const int START_ROW = 11;
-        const int START_COLUMN = 5;
-
-
-        static void Main(string[] args)
-        {
-            setupRewards(maze1, WALL_REWARD_VALUE, FLOOR_REWARD_VALUE, GOAL_REWARD_VALUE);
-            setupQValues(maze1);
-            trainTheModel(maze1, FLOOR_REWARD_VALUE, EPSILON, DISCOUNT_FACTOR, LEARNING_RATE, EPISODES);
-            navigateMaze(maze1, START_ROW, START_COLUMN, FLOOR_REWARD_VALUE, WALL_REWARD_VALUE);
-
-        }
-
     }
 }
