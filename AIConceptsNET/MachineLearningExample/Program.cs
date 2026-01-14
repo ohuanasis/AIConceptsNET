@@ -11,6 +11,7 @@ namespace MachineLearningExample
 
             IDataView data = mlContext.Data.LoadFromTextFile<HousingData>("housing-data.csv", separatorChar:',', hasHeader:true);
 
+            /*
             string[] featureColumns = { "SquareFeet", "Bedrooms" };
             string labelColumn = "Price";
 
@@ -22,6 +23,21 @@ namespace MachineLearningExample
             var metrics = mlContext.Regression.Evaluate(prediction, labelColumnName: labelColumn);
             Console.WriteLine($"Mean Absolute Error: {metrics.MeanAbsoluteError}");
             Console.WriteLine($"Root Mean Squared Error: {metrics.RootMeanSquaredError}");
+            */
+
+            var dataPipeline = mlContext.Transforms.Conversion.ConvertType("SquareFeet", outputKind: DataKind.Single)
+                .Append(mlContext.Transforms.NormalizeMinMax("SquareFeet"))
+                .Append(mlContext.Transforms.Concatenate("Features", "SquareFeet", "Bedrooms"))
+                .Append(mlContext.Transforms.Categorical.OneHotEncoding("Neighborhood"));
+
+            var transformedData = dataPipeline.Fit(data).Transform(data);
+            var transformedDataEnumerable = mlContext.Data.CreateEnumerable<TansformedHousingData>(transformedData, reuseRowObject: false).ToList();
+
+            foreach (var item in transformedDataEnumerable)
+            {
+                Console.WriteLine($"SquareFeet: {item.SquareFeet}, Bedrooms: {item.Bedrooms}, Price: {item.Price}, Features: {string.Join(", ", item.Features)}, Neighborhood: {string.Join(", ", item.Neighborhood)}");
+            }
+
         }
     }
 
