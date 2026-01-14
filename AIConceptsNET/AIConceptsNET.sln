@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeExample", "MazeExample\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetwork", "NeuralNetwork\NeuralNetwork.csproj", "{161906B5-2137-46E2-8342-D3D85B1534D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningExample", "MachineLearningExample\MachineLearningExample.csproj", "{ED15B704-BDDF-40FA-A24A-0CC9382CA55A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{161906B5-2137-46E2-8342-D3D85B1534D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{161906B5-2137-46E2-8342-D3D85B1534D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{161906B5-2137-46E2-8342-D3D85B1534D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED15B704-BDDF-40FA-A24A-0CC9382CA55A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED15B704-BDDF-40FA-A24A-0CC9382CA55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED15B704-BDDF-40FA-A24A-0CC9382CA55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED15B704-BDDF-40FA-A24A-0CC9382CA55A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
