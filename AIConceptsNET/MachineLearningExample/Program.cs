@@ -33,6 +33,8 @@ namespace MachineLearningExample
         public float Bedrooms { get; set; }
         [LoadColumn(2)]
         public float Price { get; set; }
+        [LoadColumn(3)]
+        public string Neighborhood { get; set; }
 
     }
 
@@ -40,5 +42,15 @@ namespace MachineLearningExample
     {
         [ColumnName("Score")]
         public float Price { get; set; }
+    }
+
+    internal class TansformedHousingData
+    {
+        public float SquareFeet { get; set; }
+        public float Bedrooms { get; set; }
+        public float Price { get; set; }
+        public float[] Features { get; set; }
+        public float[] Neighborhood { get; set; }
+
     }
 }
