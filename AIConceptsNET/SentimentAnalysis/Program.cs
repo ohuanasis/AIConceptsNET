@@ -1,5 +1,7 @@
 ﻿using Microsoft.ML;
 using SentimentAnalysis.Classification;
+using System.IO;
+using Microsoft.ML.Trainers;
 
 namespace SentimentAnalysis
 {
@@ -21,12 +23,14 @@ namespace SentimentAnalysis
 
             IDataView dataView = mlContext.Data.LoadFromTextFile<MovieReview>(dataPath, hasHeader: true, allowQuoting: true, separatorChar: ',');
 
-            var preview = dataView.Preview();
+            //Console.WriteLine("Data loaded successfully");
+            //Console.WriteLine();
 
-            foreach (var row in preview.RowView)
-            {
-                Console.WriteLine($"{row.Values[0]} | {row.Values[1]}");
-            }
+            //var preview = dataView.Preview();
+            //foreach (var row in preview.RowView)
+            //{
+            //    Console.WriteLine($"{row.Values[0]} | {row.Values[1]}");
+            //}
 
         }
     }
