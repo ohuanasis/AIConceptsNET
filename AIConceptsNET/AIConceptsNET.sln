@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningExample", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysis", "SentimentAnalysis\SentimentAnalysis.csproj", "{41D52FA9-E013-48D8-911D-357CA98D8710}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageClassification", "ImageClassification\ImageClassification.csproj", "{1530F946-B5D5-42A2-BB07-B994078BB075}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{41D52FA9-E013-48D8-911D-357CA98D8710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41D52FA9-E013-48D8-911D-357CA98D8710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41D52FA9-E013-48D8-911D-357CA98D8710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1530F946-B5D5-42A2-BB07-B994078BB075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1530F946-B5D5-42A2-BB07-B994078BB075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1530F946-B5D5-42A2-BB07-B994078BB075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1530F946-B5D5-42A2-BB07-B994078BB075}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
