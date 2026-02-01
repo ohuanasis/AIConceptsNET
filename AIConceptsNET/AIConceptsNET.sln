@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysis", "Sentim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageClassification", "ImageClassification\ImageClassification.csproj", "{1530F946-B5D5-42A2-BB07-B994078BB075}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regression", "Regression\Regression.csproj", "{F2FDFFA6-45B5-4471-93E4-C4D5E61584EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1530F946-B5D5-42A2-BB07-B994078BB075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1530F946-B5D5-42A2-BB07-B994078BB075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1530F946-B5D5-42A2-BB07-B994078BB075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2FDFFA6-45B5-4471-93E4-C4D5E61584EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FDFFA6-45B5-4471-93E4-C4D5E61584EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FDFFA6-45B5-4471-93E4-C4D5E61584EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FDFFA6-45B5-4471-93E4-C4D5E61584EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
