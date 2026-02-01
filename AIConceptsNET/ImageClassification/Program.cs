@@ -126,7 +126,4 @@ namespace ImageClassification
 
 
     }
-
-
-
 }
