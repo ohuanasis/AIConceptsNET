@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regression", "Regression\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForecastingAI", "ForecastingAI\ForecastingAI.csproj", "{C85A1E22-3C20-4DCB-938D-F08FF13E8EE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendation", "Recommendation\Recommendation.csproj", "{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C85A1E22-3C20-4DCB-938D-F08FF13E8EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C85A1E22-3C20-4DCB-938D-F08FF13E8EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85A1E22-3C20-4DCB-938D-F08FF13E8EE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
