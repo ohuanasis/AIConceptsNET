@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForecastingAI", "Forecastin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recommendation", "Recommendation\Recommendation.csproj", "{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysisExample", "SentimentAnalysisExample\SentimentAnalysisExample.csproj", "{F82BD57F-DDCB-4D05-B65C-2A4EEB7C9F85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7BC94BE-15D7-4394-B44F-0FD4C7E1C873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F82BD57F-DDCB-4D05-B65C-2A4EEB7C9F85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F82BD57F-DDCB-4D05-B65C-2A4EEB7C9F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F82BD57F-DDCB-4D05-B65C-2A4EEB7C9F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F82BD57F-DDCB-4D05-B65C-2A4EEB7C9F85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
