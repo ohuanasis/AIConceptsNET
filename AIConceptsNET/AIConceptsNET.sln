@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextGeneration", "TextGener
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSeriesAnalysis", "TimeSeriesAnalysis\TimeSeriesAnalysis.csproj", "{2239E04B-0A5A-4466-B695-5CF43E73E0FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clustering", "Clustering\Clustering.csproj", "{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{2239E04B-0A5A-4466-B695-5CF43E73E0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2239E04B-0A5A-4466-B695-5CF43E73E0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2239E04B-0A5A-4466-B695-5CF43E73E0FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
