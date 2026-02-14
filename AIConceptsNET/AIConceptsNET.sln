@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnomalyDetection", "Anomaly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextGeneration", "TextGeneration\TextGeneration.csproj", "{2E879803-C7CB-4C09-B0E6-BBBF54C430FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSeriesAnalysis", "TimeSeriesAnalysis\TimeSeriesAnalysis.csproj", "{2239E04B-0A5A-4466-B695-5CF43E73E0FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{2E879803-C7CB-4C09-B0E6-BBBF54C430FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E879803-C7CB-4C09-B0E6-BBBF54C430FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E879803-C7CB-4C09-B0E6-BBBF54C430FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2239E04B-0A5A-4466-B695-5CF43E73E0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2239E04B-0A5A-4466-B695-5CF43E73E0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2239E04B-0A5A-4466-B695-5CF43E73E0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2239E04B-0A5A-4466-B695-5CF43E73E0FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
