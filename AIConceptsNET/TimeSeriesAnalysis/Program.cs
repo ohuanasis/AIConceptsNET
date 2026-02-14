@@ -35,7 +35,7 @@ namespace TimeSeriesAnalysis
             var model = pipeline.Fit(trainData);
             #endregion
 
-            #region Evaluating the model
+            #region Evaluating forecasting the model
             var predictions = model.Transform(testData);
             var forecastingEngine = model.CreateTimeSeriesEngine<TrafficData, Prediction>(mlContext);
             EvaluateMetrics(testData, predictions, mlContext);
