@@ -8,15 +8,26 @@ namespace Clustering
         private static readonly string dataPath = Path.Combine(Environment.CurrentDirectory, "customers.csv");
         static void Main(string[] args)
         {
+            #region Load the data
             MLContext mlContext = new MLContext();
             IDataView dataView = mlContext.Data.LoadFromTextFile<CustomerData>(dataPath, separatorChar: ',', hasHeader: true);
-            var pipeline = mlContext.Transforms.Concatenate("Features", "AnnualIncome", "SpendingScore").Append(mlContext.Clustering.Trainers.KMeans("Features", numberOfClusters: 3));
+            #endregion
+
+            #region Train Model
+            var pipeline = mlContext.Transforms.Concatenate("Features", "AnnualIncome", "SpendingScore")
+                .Append(mlContext.Clustering.Trainers.KMeans("Features", numberOfClusters: 3));
+
             var model = pipeline.Fit(dataView);
             var transformedData = model.Transform(dataView);
+            #endregion
+
+            #region Evaluate and test the model
             var predictions = mlContext.Data.CreateEnumerable<ClusterPrediction>(transformedData, reuseRowObject: false);
-            foreach(var prediction in predictions) {
+            foreach (var prediction in predictions)
+            {
                 Console.WriteLine($"CustomerID: {prediction.CustomerID}, Predicted Cluster: {prediction.PredictedClusterId}");
-            }
+            } 
+            #endregion
         }
     }
 
