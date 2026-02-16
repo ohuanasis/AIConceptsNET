@@ -29,3 +29,35 @@ Integrations: ONNX Runtime, Microsoft.ML.GenAI, and TorchSharp.
 | Regression | Supervised | Predicts continuous numerical values (e.g., house prices or stock trends). |
 | SentimentAnalysis | NLP | Classifies text as positive, negative, or neutral using binary classification. |
 | TextGeneration | Generative AI | Local LLM implementation (Phi-3/4) for generating text via prompts. |
+
+
+# 🔍 Deep Dives🧩
+
+## MazeExample (Reinforcement Learning)
+
+The MazeExample demonstrates Q-Learning, a model-free reinforcement learning algorithm. Unlike the other projects that use pre-existing datasets, this agent learns by interacting with its environment.
+
+### **The Logic**
+*   **States:** The current cell index of the agent.
+*   **Actions:** Moves (Up, Down, Left, Right).
+*   **Rewards:** Points for reaching the goal, penalties for hitting walls or taking too many steps.
+*   **The Equation:** The agent updates its "Quality" ($Q$) matrix using the **Bellman Equation**:
+
+$$Q(s, a) = Q(s, a) + \alpha [R + \gamma \max Q(s', a') - Q(s, a)]$$
+
+
+# ✍️ TextGeneration (Generative AI)
+This project leverages the modern ML.NET 5.0 capabilities to run Small Language Models (SLMs) locally.
+
+### **Features**
+*   **Model Support:** Configured for **Phi-3** or **Phi-4** in **ONNX** format.
+*   **Streaming Output:** Implements `IAsyncEnumerable` to display text in real-time as the model generates tokens.
+*   **Tokenization:** Utilizes the `Microsoft.ML.Tokenizers` library for high-speed local inference.
+
+
+# 🧠 Key Learnings
+
+### **Core Capabilities**
+*   **Data Pipelines:** Using `IDataView` for memory-efficient data loading.
+*   **Model Evaluation:** Measuring success via **R-Squared**, **F1-Score**, and **RMSE**.
+*   **Local GenAI:** Running LLMs locally to ensure **data privacy** and zero latency costs.
