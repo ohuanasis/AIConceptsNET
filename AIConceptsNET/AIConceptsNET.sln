@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSeriesAnalysis", "TimeS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clustering", "Clustering\Clustering.csproj", "{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReinforcementLearning", "ReinforcementLearning\ReinforcementLearning.csproj", "{1BE2EE8A-7DF0-4C65-8E6D-58097D2750D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C941E4F6-69F1-46DC-B3E3-F2ACB2595E8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BE2EE8A-7DF0-4C65-8E6D-58097D2750D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE2EE8A-7DF0-4C65-8E6D-58097D2750D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE2EE8A-7DF0-4C65-8E6D-58097D2750D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE2EE8A-7DF0-4C65-8E6D-58097D2750D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
